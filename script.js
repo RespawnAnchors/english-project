@@ -232,7 +232,7 @@ function showLoadingScreen(backgroundAudio) {
 
                         const image = document.createElement("img");
                         image.className = "ending-image";
-                        image.src = new URL("image.webp", document.baseURI).href;
+                        image.src = new URL("ashwin.png", document.baseURI).href;
                         image.alt = "A photo";
                         image.addEventListener("error", () => {
                             console.error("Unable to load the ending image:", image.src);
