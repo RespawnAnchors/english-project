@@ -211,42 +211,11 @@ function showLoadingScreen(backgroundAudio) {
                 video.autoplay = true;
                 video.muted = true;
                 video.playsInline = true;
-                const deathAudio = new Audio(new URL(
-                    "ultrakill-death-audio.mp3",
-                    document.baseURI
-                ).href);
-                deathAudio.preload = "auto";
-                deathAudio.volume = 1;
-
                 video.addEventListener("playing", () => {
-                    deathAudio.currentTime = 0;
-                    deathAudio.play().catch((error) => {
-                        console.error("Unable to autoplay the death-screen audio:", error);
-                        if (!video.isConnected || video.paused) {
-                            return;
-                        }
-
-                        const enableSoundButton = document.createElement("button");
-                        enableSoundButton.className = "video-audio-prompt";
-                        enableSoundButton.type = "button";
-                        enableSoundButton.textContent = "Enable death screen sound";
-                        enableSoundButton.addEventListener("click", () => {
-                            deathAudio.currentTime = video.currentTime;
-                            deathAudio.play().then(() => {
-                                enableSoundButton.remove();
-                            }).catch((playError) => {
-                                console.error("Unable to play the death-screen audio:", playError);
-                            });
-                        });
-                        document.body.append(enableSoundButton);
-                    });
-
                     window.setTimeout(() => {
                         video.pause();
                         video.removeAttribute("src");
                         video.load();
-                        deathAudio.pause();
-                        deathAudio.currentTime = 0;
                         if (backgroundAudio) {
                             backgroundAudio.pause();
                             backgroundAudio.currentTime = 0;
@@ -259,7 +228,7 @@ function showLoadingScreen(backgroundAudio) {
                         endingMessage.className = "ending-message";
 
                         const greeting = document.createElement("h1");
-                        greeting.textContent = "HI ASHWIN, I AM THE HACKER. I HAVE YOUR DATA. I WILL BE WATCHING YOU.";
+                        greeting.textContent = "HI NIGGA, I AM THE HACKER. I HAVE YOUR DATA. I WILL BE WATCHING YOU.";
 
                         const image = document.createElement("img");
                         image.className = "ending-image";
@@ -275,9 +244,6 @@ function showLoadingScreen(backgroundAudio) {
                 }, { once: true });
                 video.addEventListener("error", () => {
                     console.error("Unable to load the ending video:", video.error);
-                });
-                deathAudio.addEventListener("error", () => {
-                    console.error("Unable to load the death-screen audio:", deathAudio.error);
                 });
 
                 document.body.replaceChildren();
